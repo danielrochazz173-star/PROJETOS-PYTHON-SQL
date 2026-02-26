@@ -12,6 +12,9 @@ from typing import Any
 from google.cloud import bigquery
 import requests
 
+PIPELINE_NAME = "RiskPulse BQ"
+PIPELINE_VERSION = "1.0.1"
+
 
 @dataclass
 class PipelineConfig:
@@ -616,6 +619,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+    logging.info("Inicializando %s v%s", PIPELINE_NAME, PIPELINE_VERSION)
     args = parse_args()
     cfg = PipelineConfig.from_env()
     pipeline = BigQueryRiscoComercialPipeline(cfg, dry_run=args.dry_run)
