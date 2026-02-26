@@ -164,3 +164,4 @@ if __name__ == '__main__':
         })
         df_out.to_csv(out / "comissao_dados_oracle.csv", sep=';', decimal=',', index=False, encoding='utf-8-sig')
         print(f"\nArquivo salvo: {out / 'comissao_dados_oracle.csv'}")
+# portfolio-commit-ready: comissao_dados_oracle
