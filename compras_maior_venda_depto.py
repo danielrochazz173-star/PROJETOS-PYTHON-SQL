@@ -1110,3 +1110,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+# portfolio-commit-ready: compras_maior_venda_depto
