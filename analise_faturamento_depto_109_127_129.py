@@ -273,3 +273,4 @@ if __name__ == "__main__":
         conn.close()
         print("\n🔌 Conexão fechada.")
 
+# portfolio-commit-ready: analise_faturamento_depto_109_127_129

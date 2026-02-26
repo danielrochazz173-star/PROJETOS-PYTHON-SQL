@@ -319,3 +319,4 @@ if __name__ == "__main__":
 
 
 
+# portfolio-commit-ready: analise_vendas_produtos_universal

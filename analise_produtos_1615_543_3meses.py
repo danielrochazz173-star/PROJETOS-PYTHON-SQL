@@ -514,3 +514,4 @@ if __name__ == "__main__":
         conn.close()
         print("\n🔌 Conexão fechada.")
 
+# portfolio-commit-ready: analise_produtos_1615_543_3meses

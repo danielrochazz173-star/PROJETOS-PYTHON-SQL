@@ -707,3 +707,4 @@ if __name__ == "__main__":
     app = AnaliseProdutosAbaixoPreco(root)
     root.mainloop()
 
+# portfolio-commit-ready: analise_produtos_abaixo_preco

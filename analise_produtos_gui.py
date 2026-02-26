@@ -708,3 +708,4 @@ if __name__ == "__main__":
     app = AnaliseProdutosGUI(root)
     root.mainloop()
 
+# portfolio-commit-ready: analise_produtos_gui

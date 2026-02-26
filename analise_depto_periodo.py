@@ -1417,3 +1417,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+# portfolio-commit-ready: analise_depto_periodo

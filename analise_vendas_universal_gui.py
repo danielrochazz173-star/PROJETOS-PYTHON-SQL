@@ -953,3 +953,4 @@ if __name__ == "__main__":
     app = AnaliseVendasUniversal(root)
     root.mainloop()
 
+# portfolio-commit-ready: analise_vendas_universal_gui
