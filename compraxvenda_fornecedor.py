@@ -748,3 +748,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+# portfolio-commit-ready: compraxvenda_fornecedor
