@@ -10,6 +10,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from google.cloud import bigquery
+import requests
 
 
 @dataclass
@@ -23,6 +24,14 @@ class PipelineConfig:
     audit_table: str
     lookback_days: int
     watermark_ts: datetime
+    sfmc_enabled: bool
+    sfmc_auth_base_url: str
+    sfmc_rest_base_url: str
+    sfmc_client_id: str
+    sfmc_client_secret: str
+    sfmc_account_id: str
+    sfmc_data_extension_key: str
+    sfmc_batch_size: int
 
     @classmethod
     def from_env(cls) -> "PipelineConfig":
@@ -34,6 +43,25 @@ class PipelineConfig:
         alert_table = os.getenv("BQ_ALERT_TABLE", "alertas_quebra_margem")
         audit_table = os.getenv("BQ_AUDIT_TABLE", "etl_auditoria_execucoes")
         lookback_days = int(os.getenv("LOOKBACK_DAYS", "90"))
+        sfmc_enabled = os.getenv("SFMC_ENABLED", "false").lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+        sfmc_auth_base_url = os.getenv(
+            "SFMC_AUTH_BASE_URL", "https://mc123456789.auth.marketingcloudapis.com"
+        )
+        sfmc_rest_base_url = os.getenv(
+            "SFMC_REST_BASE_URL", "https://mc123456789.rest.marketingcloudapis.com"
+        )
+        sfmc_client_id = os.getenv("SFMC_CLIENT_ID", "")
+        sfmc_client_secret = os.getenv("SFMC_CLIENT_SECRET", "")
+        sfmc_account_id = os.getenv("SFMC_ACCOUNT_ID", "")
+        sfmc_data_extension_key = os.getenv(
+            "SFMC_DATA_EXTENSION_KEY", "DE_ALERTAS_RISCO_MARGEM"
+        )
+        sfmc_batch_size = int(os.getenv("SFMC_BATCH_SIZE", "500"))
 
         watermark_str = os.getenv("WATERMARK_TS_UTC")
         if watermark_str:
@@ -51,6 +79,14 @@ class PipelineConfig:
             audit_table=audit_table,
             lookback_days=lookback_days,
             watermark_ts=watermark_ts,
+            sfmc_enabled=sfmc_enabled,
+            sfmc_auth_base_url=sfmc_auth_base_url,
+            sfmc_rest_base_url=sfmc_rest_base_url,
+            sfmc_client_id=sfmc_client_id,
+            sfmc_client_secret=sfmc_client_secret,
+            sfmc_account_id=sfmc_account_id,
+            sfmc_data_extension_key=sfmc_data_extension_key,
+            sfmc_batch_size=sfmc_batch_size,
         )
 
 
@@ -75,6 +111,7 @@ class BigQueryRiscoComercialPipeline:
                 "staged_rows": 0,
                 "merged_rows": 0,
                 "alerts_rows": 0,
+                "sfmc_rows_sent": 0,
                 "dq": {"total_rows": 0, "null_breaks": 0, "duplicate_rows": 0, "critical_errors": 0},
             }
 
@@ -92,12 +129,14 @@ class BigQueryRiscoComercialPipeline:
                 staged_rows=staged_rows,
                 merged_rows=0,
                 alerts_rows=0,
+                sfmc_rows_sent=0,
                 dq_summary=dq,
             )
             raise RuntimeError(f"Data quality failed: {dq}")
 
         merged_rows = self._merge_fact(staging_table)
         alerts_rows = self._refresh_alerts()
+        sfmc_rows_sent = self._sync_alerts_to_sfmc()
 
         self._run_query(f"DROP TABLE `{staging_table}`")
         self._write_audit(
@@ -105,6 +144,7 @@ class BigQueryRiscoComercialPipeline:
             staged_rows=staged_rows,
             merged_rows=merged_rows,
             alerts_rows=alerts_rows,
+            sfmc_rows_sent=sfmc_rows_sent,
             dq_summary=dq,
         )
 
@@ -117,6 +157,7 @@ class BigQueryRiscoComercialPipeline:
             "staged_rows": staged_rows,
             "merged_rows": merged_rows,
             "alerts_rows": alerts_rows,
+            "sfmc_rows_sent": sfmc_rows_sent,
             "dq": dq,
         }
 
@@ -179,6 +220,7 @@ class BigQueryRiscoComercialPipeline:
           staged_rows INT64,
           merged_rows INT64,
           alerts_rows INT64,
+          sfmc_rows_sent INT64,
           dq_summary_json STRING
         )
         PARTITION BY DATE(started_at)
@@ -400,15 +442,16 @@ class BigQueryRiscoComercialPipeline:
         staged_rows: int,
         merged_rows: int,
         alerts_rows: int,
+        sfmc_rows_sent: int,
         dq_summary: dict[str, int],
     ) -> None:
         target = f"{self.cfg.project_id}.{self.cfg.analytics_dataset}.{self.cfg.audit_table}"
         sql = f"""
         INSERT INTO `{target}` (
-          run_id, status, started_at, finished_at, staged_rows, merged_rows, alerts_rows, dq_summary_json
+          run_id, status, started_at, finished_at, staged_rows, merged_rows, alerts_rows, sfmc_rows_sent, dq_summary_json
         )
         VALUES (
-          @run_id, @status, @started_at, CURRENT_TIMESTAMP(), @staged_rows, @merged_rows, @alerts_rows, @dq_summary_json
+          @run_id, @status, @started_at, CURRENT_TIMESTAMP(), @staged_rows, @merged_rows, @alerts_rows, @sfmc_rows_sent, @dq_summary_json
         )
         """
         self._run_query(
@@ -420,11 +463,120 @@ class BigQueryRiscoComercialPipeline:
                 bigquery.ScalarQueryParameter("staged_rows", "INT64", staged_rows),
                 bigquery.ScalarQueryParameter("merged_rows", "INT64", merged_rows),
                 bigquery.ScalarQueryParameter("alerts_rows", "INT64", alerts_rows),
+                bigquery.ScalarQueryParameter("sfmc_rows_sent", "INT64", sfmc_rows_sent),
                 bigquery.ScalarQueryParameter(
                     "dq_summary_json", "STRING", json.dumps(dq_summary, ensure_ascii=True)
                 ),
             ],
         )
+
+    def _sync_alerts_to_sfmc(self) -> int:
+        if not self.cfg.sfmc_enabled:
+            logging.info("SFMC desabilitado; sincronizacao de alertas ignorada.")
+            return 0
+
+        required = [
+            self.cfg.sfmc_client_id,
+            self.cfg.sfmc_client_secret,
+            self.cfg.sfmc_account_id,
+            self.cfg.sfmc_data_extension_key,
+        ]
+        if any(not value for value in required):
+            raise ValueError(
+                "SFMC habilitado, mas variaveis obrigatorias nao foram preenchidas."
+            )
+
+        rows = self._fetch_sfmc_payload()
+        if not rows:
+            logging.info("Sem alertas para sincronizar com SFMC.")
+            return 0
+
+        token = self._sfmc_get_token()
+        endpoint = (
+            f"{self.cfg.sfmc_rest_base_url}/hub/v1/dataevents/key:"
+            f"{self.cfg.sfmc_data_extension_key}/rowset"
+        )
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        }
+
+        sent = 0
+        for i in range(0, len(rows), self.cfg.sfmc_batch_size):
+            batch = rows[i : i + self.cfg.sfmc_batch_size]
+            response = requests.post(
+                endpoint,
+                headers=headers,
+                json=batch,
+                timeout=30,
+            )
+            if response.status_code >= 300:
+                raise RuntimeError(
+                    f"Falha no envio SFMC ({response.status_code}): {response.text[:500]}"
+                )
+            sent += len(batch)
+        return sent
+
+    def _sfmc_get_token(self) -> str:
+        url = f"{self.cfg.sfmc_auth_base_url}/v2/token"
+        payload = {
+            "grant_type": "client_credentials",
+            "client_id": self.cfg.sfmc_client_id,
+            "client_secret": self.cfg.sfmc_client_secret,
+            "account_id": self.cfg.sfmc_account_id,
+        }
+        response = requests.post(url, json=payload, timeout=30)
+        if response.status_code >= 300:
+            raise RuntimeError(
+                f"Nao foi possivel autenticar no SFMC ({response.status_code}): {response.text[:500]}"
+            )
+        token = response.json().get("access_token")
+        if not token:
+            raise RuntimeError("SFMC retornou resposta sem access_token.")
+        return token
+
+    def _fetch_sfmc_payload(self) -> list[dict[str, Any]]:
+        table = f"{self.cfg.project_id}.{self.cfg.analytics_dataset}.{self.cfg.alert_table}"
+        sql = f"""
+        SELECT
+          CAST(data_referencia AS STRING) AS data_referencia,
+          canal,
+          CAST(cod_departamento AS STRING) AS cod_departamento,
+          CAST(cod_produto AS STRING) AS cod_produto,
+          CAST(cod_cliente AS STRING) AS cod_cliente,
+          CAST(faturamento_liquido AS STRING) AS faturamento_liquido,
+          CAST(margem_liquida AS STRING) AS margem_liquida,
+          CAST(percentual_margem AS STRING) AS percentual_margem,
+          CAST(zscore_margem AS STRING) AS zscore_margem,
+          alert_level,
+          FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%SZ', generated_at) AS generated_at
+        FROM `{table}`
+        WHERE data_referencia >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
+        """
+        df = self._run_query(sql).result().to_dataframe()
+        payload: list[dict[str, Any]] = []
+        for _, row in df.iterrows():
+            payload.append(
+                {
+                    "keys": {
+                        "RunId": self.run_id,
+                        "DataReferencia": row["data_referencia"],
+                        "CodProduto": row["cod_produto"],
+                        "CodCliente": row["cod_cliente"],
+                    },
+                    "values": {
+                        "Canal": row["canal"],
+                        "CodDepartamento": row["cod_departamento"],
+                        "FaturamentoLiquido": row["faturamento_liquido"],
+                        "MargemLiquida": row["margem_liquida"],
+                        "PercentualMargem": row["percentual_margem"],
+                        "ZScoreMargem": row["zscore_margem"],
+                        "AlertLevel": row["alert_level"],
+                        "GeneratedAtUtc": row["generated_at"],
+                    },
+                }
+            )
+        return payload
 
     def _count_rows(self, table_fqn: str) -> int:
         sql = f"SELECT COUNT(*) AS total FROM `{table_fqn}`"
