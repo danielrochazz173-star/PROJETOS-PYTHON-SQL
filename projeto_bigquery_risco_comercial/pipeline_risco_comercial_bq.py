@@ -629,3 +629,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+# portfolio-commit-ready: pipeline_risco_comercial_bq

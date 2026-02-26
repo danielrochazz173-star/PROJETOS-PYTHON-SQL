@@ -511,3 +511,4 @@ if __name__ == "__main__":
     app = MonitorPedidosCheckout(root)
     root.mainloop()
 
+# portfolio-commit-ready: monitor_pedidos_checkout
