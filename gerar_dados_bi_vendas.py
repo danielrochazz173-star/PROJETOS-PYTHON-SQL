@@ -932,3 +932,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+# portfolio-commit-ready: gerar_dados_bi_vendas
