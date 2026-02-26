@@ -1,14 +1,19 @@
 # PROJETOS-PYTHON
 
-Colecao de projetos Python focados em analise comercial, automacao de processos e integracao com Oracle/Google Sheets.  
+Colecao de projetos Python focados em analise comercial, automacao de processos e integracao com Oracle/Google Sheets/BigQuery.  
 Este repositorio foi organizado para leitura de recrutadores e avaliacao tecnica rapida.
 
 ## Visao geral
 
 - Total de scripts mapeados: **42**
 - Foco principal: **dados comerciais (vendas, margem, comissao, compras x venda)**
-- Tecnologias mais usadas: **Python, Oracle DB, Pandas, OpenPyXL, Tkinter, Streamlit**
+- Tecnologias mais usadas: **Python, Oracle DB, BigQuery, Pandas, OpenPyXL, Tkinter, Streamlit**
 - Tipos de entrega: **Excel, PDF, dashboard web, automacoes e monitoramento**
+
+## Projeto destaque (Cloud / BigQuery)
+
+- [`projeto_bigquery_risco_comercial/README.md`](projeto_bigquery_risco_comercial/README.md)  
+  **RiskPulse BQ**: pipeline Python + BigQuery com carga incremental (`MERGE`), data quality, alertas de quebra de margem (z-score), particionamento/clustering e auditoria de execucao.
 
 ## Organizacao por pastas (documentacao)
 
@@ -36,6 +41,7 @@ A documentacao foi dividida por pasta em `docs/projetos/`:
 ## Stack utilizada
 
 - Banco e dados: `oracledb`, `pandas`, `numpy`
+- Banco e dados cloud: `google-cloud-bigquery`, `google-auth`
 - Planilhas/arquivos: `openpyxl`, `reportlab`, `weasyprint`
 - Interfaces e apps: `tkinter`, `tkcalendar`, `streamlit`, `flask`, `plotly`
 - Integracoes: `gspread`, `oauth2client`, modulo local `google_sheets_api`

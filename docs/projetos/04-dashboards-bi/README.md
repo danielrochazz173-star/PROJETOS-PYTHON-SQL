@@ -11,6 +11,11 @@ Projetos voltados para visualizacao executiva e disponibilizacao de dados para a
 | `dashboard_crescimento.py` | Dashboard web em Flask para comparativo de crescimento (2024 vs 2025). |
 | `gerar_dados_bi_vendas.py` | Gera tabelas fato e dimensoes para modelo estrela no Power BI. |
 
+## Projeto complementar (pasta dedicada)
+
+- `projeto_bigquery_risco_comercial/`
+  - Pipeline cloud com BigQuery para consolidacao comercial, `MERGE` incremental, alertas de margem e auditoria.
+
 ## Tecnologias mais frequentes
 
 - `streamlit`, `flask`, `plotly`, `matplotlib`
