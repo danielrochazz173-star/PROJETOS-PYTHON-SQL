@@ -577,3 +577,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = RelatorioVendedoresExcel(root)
     root.mainloop()
+# portfolio-commit-ready: relatorio_vendedores_excel

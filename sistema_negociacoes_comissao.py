@@ -511,3 +511,4 @@ if __name__ == "__main__":
             import traceback
             traceback.print_exc()
 
+# portfolio-commit-ready: sistema_negociacoes_comissao

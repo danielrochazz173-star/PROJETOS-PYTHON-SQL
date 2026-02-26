@@ -448,3 +448,4 @@ if __name__ == "__main__":
     app = RelatorioVendasDeptoMes(root)
     root.mainloop()
 
+# portfolio-commit-ready: relatorio_vendas_depto_mes

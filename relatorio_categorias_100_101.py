@@ -559,3 +559,4 @@ if __name__ == "__main__":
         conn.close()
         print("\n🔌 Conexão fechada.")
 
+# portfolio-commit-ready: relatorio_categorias_100_101
