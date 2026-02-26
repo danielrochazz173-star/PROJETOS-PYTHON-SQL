@@ -659,3 +659,4 @@ if __name__ == "__main__":
 
 
 
+# portfolio-commit-ready: atualizar_codauxiliares_oracle_v2
