@@ -1,7 +1,7 @@
 # PROJETOS-PYTHON
 
 Colecao de projetos Python focados em analise comercial, automacao de processos e integracao com Oracle/Google Sheets/BigQuery/Salesforce Marketing Cloud.  
-Este repositorio foi organizado para leitura de recrutadores e avaliacao tecnica rapida.
+Organizei este repositorio para leitura de recrutadores e avaliacao tecnica rapida.
 
 ## Visao geral
 
@@ -18,7 +18,7 @@ Este repositorio foi organizado para leitura de recrutadores e avaliacao tecnica
 ## Organizacao por pastas (documentacao)
 
 Os scripts continuam na raiz para manter compatibilidade atual.  
-A documentacao foi dividida por pasta em `docs/projetos/`:
+Dividi a documentacao por pasta em `docs/projetos/`:
 
 - [`docs/projetos/README.md`](docs/projetos/README.md)
 - [`docs/projetos/01-analises-produtos-vendas/README.md`](docs/projetos/01-analises-produtos-vendas/README.md)
@@ -28,7 +28,7 @@ A documentacao foi dividida por pasta em `docs/projetos/`:
 - [`docs/projetos/05-integracoes-automacoes/README.md`](docs/projetos/05-integracoes-automacoes/README.md)
 - [`docs/projetos/06-monitoramento-utilitarios/README.md`](docs/projetos/06-monitoramento-utilitarios/README.md)
 
-## Competencias tecnicas demonstradas
+## Competencias tecnicas que demonstro
 
 - Modelagem de consultas SQL em ambiente Oracle para regras comerciais reais
 - Transformacao e consolidacao de dados com Pandas
@@ -70,13 +70,9 @@ pip install pandas oracledb openpyxl reportlab weasyprint streamlit flask plotly
 python nome_do_script.py
 ```
 
-## Destaques para portfolio
+## Destaques do meu portfolio
 
 - Projetos com impacto direto em indicadores de negocio (faturamento, margem, positivacao, mix e comissao)
 - Solucoes com interface para uso por areas nao tecnicas
 - Entregas de BI e dashboards para tomada de decisao
 - Automacoes de rotina com foco em ganho operacional
-
-## Proximo passo sugerido para evolucao do repositorio
-
-- Separar fisicamente os scripts por dominio (mesma estrutura do `docs/projetos`) e adicionar `requirements.txt` por grupo.

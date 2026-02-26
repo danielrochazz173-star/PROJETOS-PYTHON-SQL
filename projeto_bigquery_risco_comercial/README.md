@@ -1,6 +1,6 @@
 # Projeto: RiskPulse BQ (Python + BigQuery + Salesforce Marketing Cloud)
 
-Projeto de portfolio com arquitetura enterprise para operacao comercial omnichannel, conectando analytics em BigQuery com ativacao de alertas no Salesforce Marketing Cloud.
+Neste projeto eu construo uma arquitetura enterprise para operacao comercial omnichannel, conectando analytics em BigQuery com ativacao de alertas no Salesforce Marketing Cloud.
 
 ## Objetivo
 
@@ -89,7 +89,7 @@ python pipeline_risco_comercial_bq.py --dry-run
 python pipeline_risco_comercial_bq.py
 ```
 
-## Pontos que valorizam portfolio
+## O que este projeto prova no meu portfolio
 
 - Arquitetura de ponta a ponta: ingestao, modelagem, deteccao de risco e ativacao CRM
 - Integracao cloud data stack + martech stack (BigQuery + Salesforce Marketing Cloud)
