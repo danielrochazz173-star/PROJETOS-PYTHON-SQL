@@ -280,3 +280,4 @@ if __name__ == "__main__":
         conn.close()
         print("\n🔌 Conexão fechada.")
 
+# portfolio-commit-ready: produtos_nf

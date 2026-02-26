@@ -556,3 +556,4 @@ if __name__ == "__main__":
     app = VendasClientePDF(root)
     root.mainloop()
 
+# portfolio-commit-ready: vendas_cliente_pdf

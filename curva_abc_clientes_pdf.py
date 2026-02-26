@@ -442,3 +442,4 @@ if __name__ == "__main__":
     app = CurvaABCClientes(root)
     root.mainloop()
 
+# portfolio-commit-ready: curva_abc_clientes_pdf

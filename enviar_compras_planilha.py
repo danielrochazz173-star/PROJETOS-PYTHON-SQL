@@ -479,3 +479,4 @@ if __name__ == "__main__":
     app = EnviarComprasPlanilha(root)
     root.mainloop()
 
+# portfolio-commit-ready: enviar_compras_planilha
