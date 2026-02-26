@@ -1626,3 +1626,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+# portfolio-commit-ready: dashboard_analise_vendedores

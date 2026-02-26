@@ -624,3 +624,4 @@ if conn:
 else:
     st.error("Não foi possível conectar ao banco de dados. Verifique as configurações.")
 
+# portfolio-commit-ready: dashboard_vendedores_streamlit
