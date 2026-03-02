@@ -3,15 +3,16 @@ import oracledb
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from datetime import datetime
+import os
 
 # =========================================================================
 # CONFIGURAÇÕES DE BANCO
 # =========================================================================
-DB_HOST = '10.0.0.10'
-DB_PORT = 1521
-DB_SERVICE = 'PROD'
-DB_USER = 'powerbi'
-DB_PASSWORD = 'cbjc4xp3nlq6'
+DB_HOST = os.getenv('DB_HOST', '10.0.0.10')
+DB_PORT = int(os.getenv('DB_PORT', '1521'))
+DB_SERVICE = os.getenv('DB_SERVICE', 'PROD')
+DB_USER = os.getenv('DB_USER', 'powerbi')
+DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 
 # Namespace do XML de NF-e
 NS = {'nfe': 'http://www.portalfiscal.inf.br/nfe'}

@@ -1,78 +1,131 @@
-# PROJETOS-PYTHON
+# Portfolio Python + SQL — Análise Comercial e Automação
 
-Colecao de projetos Python focados em analise comercial, automacao de processos e integracao com Oracle/Google Sheets/BigQuery/Salesforce Marketing Cloud.  
-Organizei este repositorio para leitura de recrutadores e avaliacao tecnica rapida.
+Coleção de projetos Python desenvolvidos para resolver problemas reais de uma operação comercial B2B:
+análise de vendas e margem, acompanhamento de vendedores, controle de compras x venda,
+dashboards executivos e integração com Oracle ERP, Google Sheets, BigQuery e Salesforce Marketing Cloud.
 
-## Visao geral
+> Repositório organizado para avaliação técnica rápida por recrutadores e gestores.
 
-- Total de scripts mapeados: **42**
-- Foco principal: **dados comerciais (vendas, margem, comissao, compras x venda)**
-- Tecnologias mais usadas: **Python, Oracle DB, BigQuery, Salesforce Marketing Cloud, Pandas, OpenPyXL, Tkinter, Streamlit**
-- Tipos de entrega: **Excel, PDF, dashboard web, automacoes e monitoramento**
+---
 
-## Projeto destaque (Cloud / BigQuery)
+## O que cada grupo de projetos resolve
 
-- [`projeto_bigquery_risco_comercial/README.md`](projeto_bigquery_risco_comercial/README.md)  
-  **RiskPulse BQ**: pipeline Python + BigQuery + Salesforce Marketing Cloud com carga incremental (`MERGE`), data quality, alertas de quebra de margem (z-score), particionamento/clustering, ativacao em Data Extension e auditoria de execucao.
+| Grupo | Problema de negócio resolvido | Entrega |
+|---|---|---|
+| [Análises de Produtos e Vendas](docs/projetos/01-analises-produtos-vendas/README.md) | Quais produtos vendem mais? Qual a margem real após devoluções? Quais clientes compraram? | Excel formatado, PDF, interface desktop |
+| [Vendedores e Comissões](docs/projetos/02-vendedores-comissoes/README.md) | Como cada vendedor performou? Qual a comissão correta? Como negociar ajustes? | Excel, Google Sheets, dashboard Streamlit |
+| [Compras e Departamentos](docs/projetos/03-compras-departamentos/README.md) | Estamos comprando mais do que vendemos? Onde há risco de margem negativa? | Excel de comparativo, relatórios gerenciais |
+| [Dashboards e BI](docs/projetos/04-dashboards-bi/README.md) | Como visualizar indicadores em tempo real? Como alimentar o Power BI? | Dashboards Streamlit/Flask, modelo estrela CSV |
+| [Integrações e Automações](docs/projetos/05-integracoes-automacoes/README.md) | Como reduzir retrabalho entre ERP, XML e planilhas? | Rotinas automatizadas, atualização de cadastros |
+| [Monitoramento e Utilitários](docs/projetos/06-monitoramento-utilitarios/README.md) | Como ser avisado quando um pedido fica parado? | Notificações desktop em tempo real |
 
-## Organizacao por pastas (documentacao)
+---
 
-Os scripts continuam na raiz para manter compatibilidade atual.  
-Dividi a documentacao por pasta em `docs/projetos/`:
+## Projeto destaque — Pipeline Cloud (BigQuery + Salesforce Marketing Cloud)
 
-- [`docs/projetos/README.md`](docs/projetos/README.md)
-- [`docs/projetos/01-analises-produtos-vendas/README.md`](docs/projetos/01-analises-produtos-vendas/README.md)
-- [`docs/projetos/02-vendedores-comissoes/README.md`](docs/projetos/02-vendedores-comissoes/README.md)
-- [`docs/projetos/03-compras-departamentos/README.md`](docs/projetos/03-compras-departamentos/README.md)
-- [`docs/projetos/04-dashboards-bi/README.md`](docs/projetos/04-dashboards-bi/README.md)
-- [`docs/projetos/05-integracoes-automacoes/README.md`](docs/projetos/05-integracoes-automacoes/README.md)
-- [`docs/projetos/06-monitoramento-utilitarios/README.md`](docs/projetos/06-monitoramento-utilitarios/README.md)
+**[RiskPulse BQ](projeto_bigquery_risco_comercial/README.md)**: pipeline Python end-to-end que:
 
-## Competencias tecnicas que demonstro
+- consolida pedidos, devoluções e custos do ERP no BigQuery;
+- calcula margem líquida por cliente/produto/departamento;
+- detecta quebras de margem com z-score estatístico;
+- faz carga incremental com `MERGE` (SCD simplificado);
+- publica alertas no Salesforce Marketing Cloud para ativação de jornada CRM;
+- registra auditoria de cada execução.
 
-- Modelagem de consultas SQL em ambiente Oracle para regras comerciais reais
-- Transformacao e consolidacao de dados com Pandas
-- Geracao de relatorios executivos em Excel (formatacao e formulas) e PDF
-- Interfaces desktop com Tkinter para uso operacional
-- Dashboards analiticos com Streamlit e Flask
-- Integracao com Google Sheets para fluxos de comissao e negociacao
-- Automacao orientada a produtividade de times comerciais/administrativos
+> Demonstra: arquitetura de dados cloud, SQL analítico, integração martech e operação rastreável.
+
+---
+
+## Visão geral dos números
+
+- **42 scripts** documentados e organizados por domínio funcional
+- **6 grupos temáticos** cobrindo toda a cadeia comercial (venda → margem → comissão → compra → BI → alerta)
+- **3 tipos de interface**: linha de comando, desktop (Tkinter) e web (Streamlit / Flask)
+- **4 sistemas integrados**: Oracle ERP, Google Sheets, BigQuery, Salesforce Marketing Cloud
+
+---
 
 ## Stack utilizada
 
-- Banco e dados: `oracledb`, `pandas`, `numpy`
-- Banco e dados cloud: `google-cloud-bigquery`, `google-auth`
-- Planilhas/arquivos: `openpyxl`, `reportlab`, `weasyprint`
-- Interfaces e apps: `tkinter`, `tkcalendar`, `streamlit`, `flask`, `plotly`
-- Integracoes: `gspread`, `oauth2client`, modulo local `google_sheets_api`
-- Utilitarios: `plyer`, `win10toast`, `python-dateutil`
+| Camada | Bibliotecas |
+|---|---|
+| Banco relacional | `oracledb`, `pandas`, `numpy` |
+| Banco cloud | `google-cloud-bigquery`, `google-auth` |
+| Planilhas e PDF | `openpyxl`, `reportlab`, `weasyprint` |
+| Interfaces | `tkinter`, `tkcalendar`, `streamlit`, `flask`, `plotly` |
+| Integrações | `gspread`, `oauth2client` |
+| Utilitários | `plyer`, `win10toast`, `python-dateutil` |
 
-## Execucao local (guia rapido)
+---
 
-1. Criar ambiente virtual:
+## Como executar localmente
+
+### 1. Criar ambiente virtual
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-2. Instalar dependencias principais:
+### 2. Instalar dependências
 
 ```powershell
 pip install pandas oracledb openpyxl reportlab weasyprint streamlit flask plotly gspread oauth2client python-dateutil tkcalendar plyer win10toast
 ```
 
-3. Configurar credenciais/conexao Oracle e Google (quando aplicavel) nos scripts.
+### 3. Configurar credenciais Oracle
 
-4. Executar o script desejado:
+Copie o arquivo de exemplo e preencha com suas credenciais:
 
 ```powershell
-python nome_do_script.py
+copy .env.example .env
 ```
 
-## Destaques do meu portfolio
+Edite `.env` com os valores reais:
 
-- Projetos com impacto direto em indicadores de negocio (faturamento, margem, positivacao, mix e comissao)
-- Solucoes com interface para uso por areas nao tecnicas
-- Entregas de BI e dashboards para tomada de decisao
-- Automacoes de rotina com foco em ganho operacional
+```
+DB_HOST=seu_servidor_oracle
+DB_PORT=1521
+DB_SERVICE=PROD
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+```
+
+As variáveis são lidas automaticamente pelos scripts via `os.getenv()`.
+
+### 4. Executar o script desejado
+
+```powershell
+# Script de linha de comando
+python analise_produtos_completa.py
+
+# Dashboard web (Streamlit) — acesse http://localhost:8501
+streamlit run dashboard_vendedores_streamlit.py
+
+# Dashboard web (Flask) — acesse http://localhost:5000
+python dashboard_crescimento.py
+```
+
+---
+
+## Competências que demonstro
+
+- Consultas SQL complexas (CTEs, MERGE, window functions) em Oracle e BigQuery
+- Transformação e consolidação de dados com Pandas
+- Relatórios executivos em Excel (formatação condicional, formulas) e PDF
+- Interfaces desktop Tkinter para uso operacional por áreas não técnicas
+- Dashboards analíticos com Streamlit e Flask + Plotly
+- Integração com Google Sheets para fluxos de comissão e negociação
+- Pipeline cloud com BigQuery, particionamento, clustering e ativação CRM
+- Boas práticas: credenciais via variáveis de ambiente, tratamento de erros, código comentado
+
+---
+
+## Documentação por categoria
+
+- [`docs/projetos/01-analises-produtos-vendas/README.md`](docs/projetos/01-analises-produtos-vendas/README.md)
+- [`docs/projetos/02-vendedores-comissoes/README.md`](docs/projetos/02-vendedores-comissoes/README.md)
+- [`docs/projetos/03-compras-departamentos/README.md`](docs/projetos/03-compras-departamentos/README.md)
+- [`docs/projetos/04-dashboards-bi/README.md`](docs/projetos/04-dashboards-bi/README.md)
+- [`docs/projetos/05-integracoes-automacoes/README.md`](docs/projetos/05-integracoes-automacoes/README.md)
+- [`docs/projetos/06-monitoramento-utilitarios/README.md`](docs/projetos/06-monitoramento-utilitarios/README.md)

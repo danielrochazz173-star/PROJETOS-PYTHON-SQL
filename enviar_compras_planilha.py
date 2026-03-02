@@ -67,11 +67,11 @@ def _get_worksheet(spreadsheet_name, worksheet_name):
 # CONFIGURAÇÕES
 # =========================================================================
 DB_CONFIG = dict(
-    host='10.0.0.10',
-    port=1521,
-    service='PROD',
-    user='powerbi',
-    password='cbjc4xp3nlq6'
+    host=os.getenv('DB_HOST', '10.0.0.10'),
+    port=int(os.getenv('DB_PORT', '1521')),
+    service=os.getenv('DB_SERVICE', 'PROD'),
+    user=os.getenv('DB_USER', 'powerbi'),
+    password=os.getenv('DB_PASSWORD', '')
 )
 
 SPREADSHEET_NAME = 'COMPRA'

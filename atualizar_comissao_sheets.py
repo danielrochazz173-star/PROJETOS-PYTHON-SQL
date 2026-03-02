@@ -12,6 +12,7 @@ import oracledb
 import pandas as pd
 from datetime import datetime
 import sys
+import os
 
 # ========== CONFIGURAÇÃO ORACLE ==========
 try:
@@ -20,9 +21,9 @@ except:
     pass
 
 DB_CONFIG = {
-    'user': 'powerbi',
-    'password': 'cbjc4xp3nlq6',
-    'dsn': '10.0.0.10:1521/PROD'
+    'user': os.getenv('DB_USER', 'powerbi'),
+    'password': os.getenv('DB_PASSWORD', ''),
+    'dsn': f"{os.getenv('DB_HOST', '10.0.0.10')}:{os.getenv('DB_PORT', '1521')}/{os.getenv('DB_SERVICE', 'PROD')}"
 }
 
 # ========== CONFIGURAÇÃO GOOGLE SHEETS ==========

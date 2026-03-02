@@ -1,27 +1,29 @@
-# 02 - Vendedores e Comissoes
+# 02 - Vendedores e Comissões
 
-Projetos focados em desempenho de vendedores, regras de comissao e suporte a negociacoes.
+Ferramentas para acompanhar desempenho individual de vendedores, calcular comissões com regras comerciais reais e apoiar negociações de fechamento.  
+Respondem perguntas como: *Qual vendedor bateu a meta? Qual a comissão correta de cada um? Como registrar uma negociação de ajuste?*
 
 ## Scripts deste grupo
 
-| Script | Resumo |
-|---|---|
-| `analise_vendedores_excel.py` | Analise de vendedores com exportacao simplificada para Excel. |
-| `analise_vendedores_excel_procv.py` | Versao de analise de vendedores com logicas adicionais de planilha. |
-| `analise_vendedores_gui.py` | Interface Tkinter para analise completa de performance de vendedores. |
-| `analise_vendedores_outubro.py` | Script rapido para leitura de desempenho mensal (outubro). |
-| `relatorio_vendedores_excel.py` | Relatorio estruturado de vendedores com indicadores comerciais. |
-| `comissao_dados_oracle.py` | Extracao de base de comissao diretamente do Oracle. |
-| `atualizar_comissao_sheets.py` | Atualiza planilha Google Sheets com dados de comissao. |
-| `sistema_negociacoes_comissao.py` | Consolida negociacoes e gera visao de comissionamento. |
+| Script | O que faz | Saída |
+|---|---|---|
+| `analise_vendedores_excel.py` | Extrai e consolida indicadores de vendedores (faturamento, margem, mix, positivação). | Excel |
+| `analise_vendedores_excel_procv.py` | Versão com lógica adicional de cruzamento de dados para análise comparativa. | Excel |
+| `analise_vendedores_gui.py` | Interface desktop para analisar performance de qualquer vendedor em qualquer período. | Excel + PDF |
+| `analise_vendedores_outubro.py` | Script pontual para leitura rápida de desempenho do mês de outubro. | Console / Excel |
+| `relatório_vendedores_excel.py` | Relatório estruturado com todos os indicadores comerciais por vendedor. | Excel formatado |
+| `comissão_dados_oracle.py` | Extrai a base de cálculo de comissão diretamente do Oracle. | DataFrame / CSV |
+| `atualizar_comissão_sheets.py` | Sincroniza os dados de comissão calculados com a planilha Google Sheets da equipe. | Google Sheets |
+| `sistema_negociações_comissão.py` | Consolida negociações de ajuste de comissão e gera visão final do comissionamento. | Excel |
 
-## Tecnologias mais frequentes
+## Tecnologias utilizadas
 
 - `oracledb`, `pandas`, `openpyxl`
 - `tkinter`, `gspread`, `oauth2client`
 
-## Valor de negocio
+## Valor para o negócio
 
-- Transparencia de performance por vendedor
-- Padronizacao de calculo e publicacao de comissoes
-- Reducao de retrabalho em negociacoes e fechamento comercial
+- Cálculo de comissão padronizado, evitando erros e disputas no fechamento mensal
+- Transparencia de performance para cada vendedor e supervisor
+- Redução de retrabalho manual: dados do Oracle vao direto para o Google Sheets da equipe
+

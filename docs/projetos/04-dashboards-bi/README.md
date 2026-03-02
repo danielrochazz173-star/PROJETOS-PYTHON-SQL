@@ -1,28 +1,30 @@
 # 04 - Dashboards e BI
 
-Projetos voltados para visualizacao executiva e disponibilizacao de dados para analise gerencial.
+Ferramentas de visualização executiva e disponibilização de dados para análise gerencial.  
+Respondem perguntas como: *Como está o faturamento hoje versus o mês passado? Como alimentar o Power BI com dados reais do ERP?*
 
 ## Scripts deste grupo
 
-| Script | Resumo |
-|---|---|
-| `dashboard_analise_vendedores.py` | Dashboard Streamlit anual com comparativos e tendencias de vendedores. |
-| `dashboard_vendedores_streamlit.py` | Dashboard Streamlit com comparacao mes atual vs anterior. |
-| `dashboard_crescimento.py` | Dashboard web em Flask para comparativo de crescimento (2024 vs 2025). |
-| `gerar_dados_bi_vendas.py` | Gera tabelas fato e dimensoes para modelo estrela no Power BI. |
+| Script | O que faz | Como executar | Saída |
+|---|---|---|---|
+| `dashboard_analise_vendedores.py` | Dashboard anual com comparativos de tendência por vendedor. | `streamlit run dashboard_analise_vendedores.py` | Web em `localhost:8501` |
+| `dashboard_vendedores_streamlit.py` | Dashboard com comparação mes atual vs anterior, cards de KPIs e exportação Excel. | `streamlit run dashboard_vendedores_streamlit.py` | Web em `localhost:8501` |
+| `dashboard_crescimento.py` | Dashboard Flask para comparativo de crescimento 2024 vs 2025. | `python dashboard_crescimento.py` | Web em `localhost:5000` |
+| `gerar_dados_bi_vendas.py` | Gera tabelas fato e dimensões (modelo estrela) para consumo no Power BI. | `python gerar_dados_bi_vendas.py` | CSVs na pasta `DADOS_BI_VENDAS/` |
 
 ## Projeto complementar (pasta dedicada)
 
-- `projeto_bigquery_risco_comercial/`
-  - Pipeline cloud com BigQuery para consolidacao comercial, `MERGE` incremental, alertas de margem e auditoria.
+- [`projeto_bigquery_risco_comercial/`](../../projeto_bigquery_risco_comercial/README.md)  
+  Pipeline cloud com BigQuery para consolidação comercial, carga incremental com `MERGE`, detecção de quebra de margem (z-score) e ativação de alertas no Salesforce Marketing Cloud.
 
-## Tecnologias mais frequentes
+## Tecnologias utilizadas
 
 - `streamlit`, `flask`, `plotly`, `matplotlib`
 - `oracledb`, `pandas`, `openpyxl`
 
-## Valor de negocio
+## Valor para o negócio
 
-- Leitura executiva rapida de indicadores
-- Base estruturada para BI corporativo
-- Apoio a reunioes de performance e planejamento
+- Leitura executiva rápida de indicadores sem abrir o ERP
+- Base de dados estruturada (modelo estrela) para dashboards corporativos no Power BI
+- Comparativos automáticos que apoiam reuniões de performance e planejamento comercial
+

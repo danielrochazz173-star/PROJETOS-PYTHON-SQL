@@ -10,17 +10,18 @@ from datetime import datetime
 import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
+import os
 
 # Configuração do Oracle Instant Client
 oracledb.init_oracle_client(lib_dir=r"C:\oracle\instantclient_23_9")
 
 # ======= CONFIGURAÇÃO DE ACESSO ORACLE =======
 DB_CONFIG = dict(
-    host='10.0.0.10',
-    port=1521,
-    service='PROD',
-    user='powerbi',
-    password='cbjc4xp3nlq6'
+    host=os.getenv('DB_HOST', '10.0.0.10'),
+    port=int(os.getenv('DB_PORT', '1521')),
+    service=os.getenv('DB_SERVICE', 'PROD'),
+    user=os.getenv('DB_USER', 'powerbi'),
+    password=os.getenv('DB_PASSWORD', '')
 )
 
 def get_db_connection():

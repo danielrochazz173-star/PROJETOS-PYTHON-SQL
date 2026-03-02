@@ -1,26 +1,28 @@
-# 05 - Integracoes e Automacoes
+# 05 - Integrações e Automações
 
-Projetos de produtividade operacional conectando Oracle, XML, planilhas e fluxos administrativos.
+Ferramentas de produtividade operacional que conectam Oracle ERP, arquivos XML e planilhas, eliminando tarefas manuais repetitivas.  
+Respondem perguntas como: *Como atualizar cadastros no ERP sem digitar um por um? Como enviar dados de compras para uma planilha automaticamente?*
 
 ## Scripts deste grupo
 
-| Script | Resumo |
-|---|---|
-| `atualizar_codauxiliares_oracle.py` | Atualiza codigos auxiliares no Oracle com interface de apoio. |
-| `atualizar_codauxiliares_oracle_v2.py` | Evolucao da rotina de atualizacao de codigos auxiliares. |
-| `preencher_codauxiliares_xml.py` | Preenche/normaliza codigos auxiliares com base em XML e Oracle. |
-| `enviar_compras_planilha.py` | Envia dados de compras para Excel/Google Sheets. |
-| `exportar_query_excel.py` | Exporta qualquer query SQL Oracle para Excel. |
-| `falta_produtos_interface.py` | Interface para acompanhamento de faltas de produtos e relatorio operacional. |
-| `pesquisar_codfab.py` | Consulta rapida de produto por codigo de fabrica (CODFAB). |
+| Script | O que faz | Saída |
+|---|---|---|
+| `atualizar_codauxiliares_oracle.py` | Interface desktop para atualizar códigos auxiliares de produtos no Oracle. | Oracle DB atualizado |
+| `atualizar_codauxiliares_oracle_v2.py` | Versão evoluida com validações adicionais e log de alterações. | Oracle DB atualizado |
+| `preencher_codauxiliares_xml.py` | Preenche códigos auxiliares em XMLs de NF com base em consulta ao Oracle. | XMLs atualizados |
+| `enviar_compras_planilha.py` | Exporta dados de compras do Oracle diretamente para Excel ou Google Sheets. | Excel / Google Sheets |
+| `exportar_query_excel.py` | Utilitário genérico: executa qualquer query SQL Oracle e exporta para Excel. | Excel |
+| `falta_produtos_interface.py` | Interface para registrar e acompanhar faltas de produtos e gerar relatório. | Excel / relatório operacional |
+| `pesquisar_codfab.py` | Consulta rápida de produto pelo código de fábrica (CODFAB) no Oracle. | Console |
 
-## Tecnologias mais frequentes
+## Tecnologias utilizadas
 
 - `oracledb`, `pandas`
-- `gspread`, `google_sheets_api`, `xml`
+- `gspread`, `xml.etree.ElementTree`
 
-## Valor de negocio
+## Valor para o negócio
 
-- Automacao de tarefas repetitivas de cadastro e analise
-- Integracao de dados entre sistemas internos e planilhas
-- Aumento de velocidade operacional no backoffice comercial
+- Redução de erros e tempo em tarefas de cadastro que antes eram manuais
+- Integração direta entre ERP e planilhas sem copiar/colar dados
+- Aumento de velocidade operacional no backoffice comercial e de compras
+
