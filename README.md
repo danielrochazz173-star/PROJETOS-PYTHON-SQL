@@ -4,8 +4,6 @@ Coleção de projetos Python desenvolvidos para resolver problemas reais de uma 
 análise de vendas e margem, acompanhamento de vendedores, controle de compras x venda,
 dashboards executivos e integração com Oracle ERP, Google Sheets, BigQuery e Salesforce Marketing Cloud.
 
-> Repositório organizado para avaliação técnica rápida por recrutadores e gestores.
-
 ---
 
 ## O que cada grupo de projetos resolve
