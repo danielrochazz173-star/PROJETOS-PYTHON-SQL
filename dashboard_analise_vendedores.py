@@ -16,6 +16,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from io import BytesIO
+import os
 
 # Configuração do Oracle Instant Client
 try:
@@ -26,11 +27,11 @@ except:
 # =========================================================================
 # CONFIGURAÇÕES
 # =========================================================================
-DB_HOST = '10.0.0.10'
-DB_PORT = 1521
-DB_SERVICE = 'PROD'
-DB_USER = 'powerbi'
-DB_PASSWORD = 'cbjc4xp3nlq6'
+DB_HOST = os.getenv('DB_HOST', '10.0.0.10')
+DB_PORT = int(os.getenv('DB_PORT', '1521'))
+DB_SERVICE = os.getenv('DB_SERVICE', 'PROD')
+DB_USER = os.getenv('DB_USER', 'powerbi')
+DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 
 # =========================================================================
 # CONFIGURAÇÃO STREAMLIT

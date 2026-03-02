@@ -1,0 +1,33 @@
+# Variáveis de ambiente (nunca commit credenciais)
+.env
+.env.local
+.env.*.local
+
+# Ambientes virtuais Python
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de saída gerados pelos scripts
+*.xlsx
+*.pdf
+*.csv
+DADOS_BI_VENDAS/
+
+# Credenciais Google / GCP
+*.json
+!package.json
+service-account*.json
+
+# Logs
+*.log
+
+# Editor e sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

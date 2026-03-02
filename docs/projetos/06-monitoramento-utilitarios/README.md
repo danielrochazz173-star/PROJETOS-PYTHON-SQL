@@ -1,20 +1,22 @@
-# 06 - Monitoramento e Utilitarios
+# 06 - Monitoramento e Utilitários
 
-Projetos de suporte operacional, alertas e validacoes rapidas.
+Ferramentas de suporte operacional para alertas em tempo real e validações rápidas.  
+Respondem perguntas como: *Como saber quando um pedido fica parado no checkout sem ficar abrindo o sistema?*
 
 ## Scripts deste grupo
 
-| Script | Resumo |
-|---|---|
-| `monitor_pedidos_checkout.py` | Monitora pedidos em checkout e dispara notificacoes de acompanhamento. |
-| `testar_notificacao.py` | Teste de notificacao local no Windows para validar canal de alerta. |
+| Script | O que faz | Saída |
+|---|---|---|
+| `monitor_pedidos_checkout.py` | Monitora continuamente pedidos parados em checkout e dispara notificação desktop. | Notificação Windows |
+| `testar_notificação.py` | Valida o canal de notificação local antes de colocar o monitor em produção. | Notificação Windows |
 
-## Tecnologias mais frequentes
+## Tecnologias utilizadas
 
-- `tkinter`, `threading`
+- `oracledb`, `threading`
 - `plyer`, `win10toast`
 
-## Valor de negocio
+## Valor para o negócio
 
-- Resposta mais rapida a eventos operacionais
-- Validacao tecnica de notificacoes antes de colocar em producao
+- Resposta mais rápida a pedidos parados, reduzindo o tempo de espera do cliente
+- Validacao do canal de alerta antes do deploy em ambiente real
+

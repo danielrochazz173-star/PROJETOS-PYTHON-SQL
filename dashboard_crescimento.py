@@ -14,6 +14,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
+import os
 
 # Configuração do Oracle Instant Client
 oracledb.init_oracle_client(lib_dir=r"C:\oracle\instantclient_23_9")
@@ -21,11 +22,11 @@ oracledb.init_oracle_client(lib_dir=r"C:\oracle\instantclient_23_9")
 # =========================================================================
 # CONFIGURAÇÕES
 # =========================================================================
-DB_HOST = '10.0.0.10'
-DB_PORT = 1521
-DB_SERVICE = 'PROD'
-DB_USER = 'powerbi'
-DB_PASSWORD = 'cbjc4xp3nlq6'
+DB_HOST = os.getenv('DB_HOST', '10.0.0.10')
+DB_PORT = int(os.getenv('DB_PORT', '1521'))
+DB_SERVICE = os.getenv('DB_SERVICE', 'PROD')
+DB_USER = os.getenv('DB_USER', 'powerbi')
+DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dicon-crescimento-2024-2025'

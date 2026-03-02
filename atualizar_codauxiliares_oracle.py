@@ -3,17 +3,18 @@ from tkinter import ttk, messagebox, filedialog
 import pandas as pd
 import oracledb
 from pathlib import Path
+import os
 
 # =========================================================================
 # CONFIGURAÇÕES DE BANCO
 # =========================================================================
-DB_HOST = '10.0.0.10'
-DB_PORT = 1521
-DB_SERVICE = 'PROD'
+DB_HOST = os.getenv('DB_HOST', '10.0.0.10')
+DB_PORT = int(os.getenv('DB_PORT', '1521'))
+DB_SERVICE = os.getenv('DB_SERVICE', 'PROD')
 
 # Credenciais padrão (podem ser alteradas no login)
 DEFAULT_USER = 'powerbi'
-DEFAULT_PASSWORD = 'cbjc4xp3nlq6'
+DEFAULT_PASSWORD = os.getenv('DB_PASSWORD', '')
 
 # Credenciais ativas (serão definidas no login)
 ACTIVE_USER = None

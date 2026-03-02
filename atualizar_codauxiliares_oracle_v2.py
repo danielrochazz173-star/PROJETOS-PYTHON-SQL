@@ -4,16 +4,17 @@ import oracledb
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import threading
+import os
 
 # =========================================================================
 # CONFIGURAÇÕES
 # =========================================================================
-DB_HOST = '10.0.0.10'
-DB_PORT = 1521
-DB_SERVICE = 'PROD'
+DB_HOST = os.getenv('DB_HOST', '10.0.0.10')
+DB_PORT = int(os.getenv('DB_PORT', '1521'))
+DB_SERVICE = os.getenv('DB_SERVICE', 'PROD')
 
 DEFAULT_USER = 'powerbi'
-DEFAULT_PASSWORD = 'cbjc4xp3nlq6'
+DEFAULT_PASSWORD = os.getenv('DB_PASSWORD', '')
 
 PASTA_XMLS = r"C:\Users\DESENVOLVIMENTO\Documents\ALL_XMLS"
 
